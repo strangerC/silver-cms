@@ -24,4 +24,6 @@ public class ArticleService extends BaseEntityCRUDService<Article, ArticleDAO>{
             
             return article;
         }
+                
+        
 }

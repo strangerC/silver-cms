@@ -10,16 +10,15 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>${article.title}</title>
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <script type="text/javascript" src="scripts/ckeditor/ckeditor.js"></script>
-        <script src="js/jquery.js"></script>
-        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <jsp:include page="/WEB-INF/pages/jsp/common/common-resource.jsp"/>
+        <script type="text/javascript" src="scripts/ckeditor/ckeditor.js"></script>        
     </head>
     <body>   
         <div class="container">
+            <h1>编辑文章</h1>
         <form method="post">
         <div>            
-            <textarea id="editor1" name="editor1">&lt;p&gt;Initial value.&lt;/p&gt;</textarea>
+            <textarea id="contentEditor" name="editor1">&lt;p&gt;Initial value.&lt;/p&gt;</textarea>
             <script type="text/javascript">
                 CKEDITOR.replace( 'editor1' );
             </script>

@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author player
+ * @author liaojian
  */
 @WebServlet(name = "ArticleServlet", urlPatterns = {"/ArticleServlet"})
 public class ArticleServlet extends HttpServlet {
@@ -33,7 +33,7 @@ public class ArticleServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String content = request.getParameter("editor1");	
+        String content = request.getParameter("contentEditor");	
         System.out.println("content:" + content);
         ArticleService service = new ArticleService();                
         Article article = service.get(new Integer(10));

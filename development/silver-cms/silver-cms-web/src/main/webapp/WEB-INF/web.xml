@@ -11,12 +11,17 @@
     </welcome-file-list>
     <servlet>
         <description/>
-        <display-name>HelloServlet</display-name>
-        <servlet-name>HelloServlet</servlet-name>
-        <servlet-class>com.silver.cms.web.servlet.HelloServlet</servlet-class>
-    </servlet>
+        <display-name>cms-dispatcher-servlet</display-name>
+        <servlet-name>cms-dispatcher-servlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath*:spring/mvc/*</param-value>   
+        </init-param>    
+        <load-on-startup>1</load-on-startup>
+    </servlet>    
     <servlet-mapping>
-        <servlet-name>HelloServlet</servlet-name>
-        <url-pattern>/HelloServlet</url-pattern>
+        <servlet-name>cms-dispatcher-servlet</servlet-name>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
 </web-app>

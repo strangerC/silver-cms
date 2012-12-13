@@ -15,13 +15,50 @@
         <dependency>
             <groupId>com.silver.seed</groupId>
             <artifactId>silver-seed</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>0.0.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.silver.cms</groupId>
             <artifactId>silver-cms-service</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>3.1.3.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>3.1.3.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet.jsp.jstl</groupId>
+            <artifactId>jstl-api</artifactId>
+            <version>1.2</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>servlet-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>jstl-impl</artifactId>
+            <version>1.2</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>servlet-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.21</version>
         </dependency>
         <dependency>
             <groupId>javax</groupId>
@@ -61,16 +98,16 @@
                 </configuration>
             </plugin>
             <plugin>
-            	<groupId>org.mortbay.jetty</groupId>
-		<artifactId>maven-jetty-plugin</artifactId>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>maven-jetty-plugin</artifactId>
             </plugin>            
         </plugins>
     </build>
     <name>silver-cms-web</name>
     <parent>
-    	<groupId>com.silver.cms</groupId>
-    	<artifactId>silver-cms</artifactId>
-    	<version>0.0.1-SNAPSHOT</version>
+        <groupId>com.silver.cms</groupId>
+        <artifactId>silver-cms</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
     </parent>
     
 </project>
