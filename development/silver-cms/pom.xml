@@ -10,6 +10,7 @@
     <module>silver-cms-dao</module>    
     <module>silver-cms-service</module>
     <module>silver-cms-web</module>
+    <module>silver-cms-commons</module>
   </modules>
   
   <build>

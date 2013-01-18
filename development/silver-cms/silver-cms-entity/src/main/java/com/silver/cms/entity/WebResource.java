@@ -4,6 +4,7 @@
  */
 package com.silver.cms.entity;
 
+import com.silver.seed.entity.BaseEntity;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -13,7 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "WebResource.findById", query = "SELECT w FROM WebResource w WHERE w.id = :id"),
     @NamedQuery(name = "WebResource.findByName", query = "SELECT w FROM WebResource w WHERE w.name = :name"),
     @NamedQuery(name = "WebResource.findByType", query = "SELECT w FROM WebResource w WHERE w.type = :type")})
-public class WebResource implements Serializable {
+public class WebResource extends BaseEntity {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -47,7 +47,7 @@ public class WebResource implements Serializable {
     public WebResource(Long id) {
         this.id = id;
     }
-
+    @Override
     public Long getId() {
         return id;
     }

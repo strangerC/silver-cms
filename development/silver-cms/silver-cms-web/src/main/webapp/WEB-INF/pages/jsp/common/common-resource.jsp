@@ -1,8 +1,3 @@
-<%-- 
-    Document   : common_resource
-    Created on : Oct 21, 2012, 2:39:34 PM
-    Author     : liaojian
---%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%

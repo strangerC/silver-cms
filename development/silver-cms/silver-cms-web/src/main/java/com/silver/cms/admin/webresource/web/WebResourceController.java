@@ -1,21 +1,18 @@
 package com.silver.cms.admin.webresource.web;
 
 import com.silver.cms.common.Constants;
-import com.silver.cms.dao.WebResourceJpaDAO;
-import com.silver.cms.dao.exceptions.PreexistingEntityException;
+import com.silver.cms.dao.impl.WebResourceJpaDaoImpl;
 import com.silver.cms.entity.WebResource;
 import com.silver.seed.file.meta.SimpleFileMeta;
 import com.silver.seed.file.meta.factory.DirectoryStyle;
 import com.silver.seed.file.meta.factory.SavedNameStyle;
 import com.silver.seed.file.meta.factory.SimpleFileMetaFactory;
 import com.silver.seed.file.service.SimpleFileService;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,63 +20,83 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * 网络资源控制类
+ * 网页资源控制类
+ *
  * @author liaojian
  */
 @Controller
 @RequestMapping("/webresource")
 public class WebResourceController {
+    WebResourceJpaDaoImpl dao = new WebResourceJpaDaoImpl();   
     /**
-     * 列出所有网络资源
-     * @return 
+     * 列出所有网页资源
+     *
+     * @return
      */
     @RequestMapping("list")
-    public ModelAndView list() {
+    public ModelAndView list() {        
+             
+        
+        List<WebResource> result = (List<WebResource>)dao.retrieveAll();
+        
         ModelAndView mv = new ModelAndView();
-        
-        WebResourceJpaDAO dao = new WebResourceJpaDAO();
-        
-        List<WebResource> webResources = dao.findWebResourceEntities();
-        
-        
         mv.setViewName("webresource/list");
+        mv.addObject("webResourceList", result);
+        
         return mv;
     }
     /**
-     * 上传资源
+     * 
+     * @param id
      * @return 
      */
-    @RequestMapping(value="uploadResource", method = RequestMethod.POST)
-    public ModelAndView handleUploadResource(@RequestParam("uploadFilePath") MultipartFile fileUpload) throws IOException {
+    @RequestMapping("{id}")    
+    public ModelAndView retrieveWebResource(@PathVariable Long id) {
+        WebResourceJpaDaoImpl dao = new WebResourceJpaDaoImpl();     
+        WebResource wr = dao.retrieve(id);
+        
+        ModelAndView mv = new ModelAndView();                        
+        mv.setViewName("webresource/view");
+        mv.addObject("webResource", wr);
+        
+        return mv;
+    }
+    
+    @RequestMapping("delete")  
+    public String deleteWebResources(@RequestParam("idSelected")Long[] ids) {        
+        if(ids != null) {
+            dao.delete(Arrays.asList(ids));
+        }
+        return "forward:/webresource/list";
+    }
+
+    /**
+     * 上传资源
+     *
+     * @return
+     */
+    @RequestMapping(value = "uploadResource", method = RequestMethod.POST)
+    public ModelAndView handleUploadResource(@RequestParam("uploadFilePath") MultipartFile fileUpload) 
+            throws IOException {
         byte[] bytes = null;
         //上传资源文件
-        if(fileUpload != null && !fileUpload.isEmpty()) {            
-            bytes = fileUpload.getBytes();
-            File fileLocal = new File(Constants.UPLOAD_FILE_PATH + fileUpload.getOriginalFilename());
-            FileOutputStream os = new FileOutputStream(fileLocal);
-            os.write(bytes);
-            os.close();
-        }
-        
-        SimpleFileMeta simpleFileMeta = new SimpleFileMetaFactory(
-                DirectoryStyle.DATE, SavedNameStyle.UUID, null).create(fileUpload.getOriginalFilename());
-        new SimpleFileService().writeToFile(bytes, simpleFileMeta);
-        //将资源文件信息记录到数据库中
-        WebResource resource = new WebResource();
-        resource.setType("file");
-        resource.setName("test");        
-        
-        WebResourceJpaDAO dao = new WebResourceJpaDAO();
-        try {
+        if (fileUpload != null && !fileUpload.isEmpty()) {
+            bytes = fileUpload.getBytes();            
+            //创建FileMeta文件，构造上传文件的元数据，根据元数据和资源文件内容保存
+            SimpleFileMeta simpleFileMeta = new SimpleFileMetaFactory(
+                    DirectoryStyle.DATE, SavedNameStyle.UUID, null).create(fileUpload.getOriginalFilename());
+            simpleFileMeta.setPath(Constants.UPLOAD_FILE_PATH + simpleFileMeta.getPath());
+            new SimpleFileService().writeToFile(bytes, simpleFileMeta);
+            //将资源文件信息记录到数据库中
+            WebResource resource = new WebResource();
+            resource.setType("file");
+            resource.setName("test");            
+            
             dao.create(resource);
-        } catch (PreexistingEntityException ex) {
-            Logger.getLogger(WebResourceController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(WebResourceController.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
-        
-        ModelAndView mv = new ModelAndView();        
+        ModelAndView mv = new ModelAndView();
         mv.setViewName("webresource/list");
-        return mv;        
-    }
+        return mv;
+    }        
 }

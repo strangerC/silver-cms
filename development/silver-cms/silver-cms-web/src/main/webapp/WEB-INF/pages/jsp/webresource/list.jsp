@@ -1,15 +1,11 @@
-<%-- 
-    Document   : list
-    Created on : Nov 16, 2012, 11:47:36 PM
-    Author     : CN085910
---%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">        
         <title>web resource</title>
-        <jsp:include page="/WEB-INF/pages/jsp/common/common-resource.jsp"/>        
+        <jsp:include page="/WEB-INF/pages/jsp/common/common-resource.jsp"/>   
         <script>
             $(function(){
                 $("#uploadFormDiv").dialog({
@@ -33,6 +29,10 @@
                     event.preventDefault();
                 });
             });            
+            
+            function submitForm() {
+                $("#list").submit();
+            }
         </script>
         <style>
             #uploadFormDiv input[type="file"]{size: 100px;}
@@ -41,7 +41,7 @@
     <body>
         <div>           
             <button class="btn" type="button" id="addResource">新增</button>
-            <button class="btn" type="button" id="deleteResource">删除</button>            
+            <button class="btn" type="button" id="deleteResource" onclick="submitForm();">删除</button>            
         </div>
         <div>
             <table class="table">
@@ -53,6 +53,14 @@
                 <th>上传时间</th>
                 </thead>
                 <c:if test="${webResourceList != null}">
+                    <form id="list" action="${ctx}/webresource/delete" method="POST">
+                    <c:forEach items="${webResourceList}" var="webResource" varStatus="status">
+                    <tr>
+                        <td><input type="checkbox" name="idSelected" value="${webResource.id}"/>${status.count}</td>
+                        <td>${webResource.name}</td>
+                    </tr>        
+                    </c:forEach>
+                    </form>
                 </c:if>
             </table>    
         </div>        

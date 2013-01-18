@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Article.findAll", query = "SELECT a FROM Article a"),
     @NamedQuery(name = "Article.findById", query = "SELECT a FROM Article a WHERE a.id = :id"),
-    @NamedQuery(name = "Article.findByTitile", query = "SELECT a FROM Article a WHERE a.titile = :titile"),
+    @NamedQuery(name = "Article.findByTitle", query = "SELECT a FROM Article a WHERE a.title = :title"),
     @NamedQuery(name = "Article.findByContent", query = "SELECT a FROM Article a WHERE a.content = :content")})
 public class Article implements Entity {
 
@@ -51,7 +51,7 @@ public class Article implements Entity {
     /**
      * 标题
      */
-    @Column(name = "TITILE")
+    @Column(name = "TITLE")
     private String title;
     /**
      * 简介
