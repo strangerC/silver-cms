@@ -5,12 +5,11 @@
 package com.silver.cms.dao;
 
 import com.silver.cms.entity.WebResource;
-import com.silver.seed.dao.CrudDao;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  *
  * @author Liaojian
  */
-public interface WebResourceJpaDao extends CrudDao<WebResource, Long>{
-       
+public interface WebResourceJpaDao extends JpaRepository<WebResource, Long> {   
 }

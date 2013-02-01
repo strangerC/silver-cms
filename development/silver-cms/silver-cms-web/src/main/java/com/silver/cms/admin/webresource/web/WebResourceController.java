@@ -1,7 +1,7 @@
 package com.silver.cms.admin.webresource.web;
 
 import com.silver.cms.common.Constants;
-import com.silver.cms.dao.impl.WebResourceJpaDaoImpl;
+import com.silver.cms.dao.WebResourceJpaDao;
 import com.silver.cms.entity.WebResource;
 import com.silver.seed.file.meta.SimpleFileMeta;
 import com.silver.seed.file.meta.factory.DirectoryStyle;
@@ -11,6 +11,7 @@ import com.silver.seed.file.service.SimpleFileService;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +28,18 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/webresource")
 public class WebResourceController {
-    WebResourceJpaDaoImpl dao = new WebResourceJpaDaoImpl();   
+    @Resource
+    private WebResourceJpaDao webResourceJpaDao;          
+
+    public WebResourceJpaDao getWebResourceJpaDao() {
+        return webResourceJpaDao;
+    }
+    
+    @Resource
+    public void setWebResourceJpaDao(WebResourceJpaDao webResourceJpaDao) {
+        this.webResourceJpaDao = webResourceJpaDao;
+    }    
+        
     /**
      * 列出所有网页资源
      *
@@ -37,7 +49,7 @@ public class WebResourceController {
     public ModelAndView list() {        
              
         
-        List<WebResource> result = (List<WebResource>)dao.retrieveAll();
+        List<WebResource> result = (List<WebResource>)webResourceJpaDao.findAll();
         
         ModelAndView mv = new ModelAndView();
         mv.setViewName("webresource/list");
@@ -51,9 +63,8 @@ public class WebResourceController {
      * @return 
      */
     @RequestMapping("{id}")    
-    public ModelAndView retrieveWebResource(@PathVariable Long id) {
-        WebResourceJpaDaoImpl dao = new WebResourceJpaDaoImpl();     
-        WebResource wr = dao.retrieve(id);
+    public ModelAndView retrieveWebResource(@PathVariable Long id) {            
+        WebResource wr = webResourceJpaDao.findOne(id);
         
         ModelAndView mv = new ModelAndView();                        
         mv.setViewName("webresource/view");
@@ -65,7 +76,9 @@ public class WebResourceController {
     @RequestMapping("delete")  
     public String deleteWebResources(@RequestParam("idSelected")Long[] ids) {        
         if(ids != null) {
-            dao.delete(Arrays.asList(ids));
+            for(Long id : ids) {
+                webResourceJpaDao.delete(id);
+            }
         }
         return "forward:/webresource/list";
     }
@@ -92,7 +105,7 @@ public class WebResourceController {
             resource.setType("file");
             resource.setName("test");            
             
-            dao.create(resource);
+            webResourceJpaDao.save(resource);
             
         }
         ModelAndView mv = new ModelAndView();

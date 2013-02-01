@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author liaojian
  */
 @Entity
-@Table(name = "web_resource")
+@Table(name = "WEB_RESOURCE", schema="silvercms")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "WebResource.findAll", query = "SELECT w FROM WebResource w"),
