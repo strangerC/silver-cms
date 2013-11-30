@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+          http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+">
+    <!--Spring3.1开始的注解 HandlerMapping -->  
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">  
+        <property name="alwaysUseFullPath" value="true"/>
+    </bean>
+    <!--Spring3.1开始的注解 HandlerAdapter -->  
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"/>          
+    
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/"/>  
+        <property name="suffix" value=".jsp"/> 
+    </bean> 
+    <!-- 定义Controller类，也可以使用context:component标签，自动扫描-->        
+    <context:component-scan base-package="com.silver.cms.template.showcase.web"/>
+</beans>
+

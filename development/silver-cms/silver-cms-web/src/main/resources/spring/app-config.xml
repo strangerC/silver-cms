@@ -20,7 +20,7 @@
     
     <!-- 扫描properties文件 -->
     <context:property-placeholder ignore-resource-not-found="true" 
-			location="classpath*:/application.properties" />
+                                  location="classpath*:/config/cms.properties" />
     
     <!--定义Spring管理的EntityManagerFactory-->
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"> 
@@ -29,13 +29,15 @@
         <property name="jpaVendorAdapter" ref="hibernateJpaVendorAdapter"/> 
         <property name="jpaProperties">
             <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.DB2Dialect</prop>
-                <prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
-                <prop key="net.sf.ehcache.configurationResourceName">resources/ehcache/ehcache-application-local.xml</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <!--prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
+                <prop key="net.sf.ehcache.configurationResourceName">resources/ehcache/ehcache-application-local.xml</prop-->
                 <prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
             </props>
         </property>
     </bean>
+    <!-- 设定JPA实现厂商的特定属性。这里使用的是Hibernate的实现 -->
+    <bean id="hibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>        
     
     <!-- 数据源配置,使用应用内的DBCP数据库连接池 -->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">

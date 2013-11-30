@@ -5,10 +5,9 @@
   <parent>
     <groupId>com.silver.cms</groupId>
     <artifactId>silver-cms</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
   </parent>
   <artifactId>silver-cms-service</artifactId>
-  <version>${parent.version}</version>
   <name>silver-cms-service</name>
   <url>http://maven.apache.org</url>
   <properties>
@@ -30,6 +29,11 @@
     	<groupId>com.silver.cms</groupId>
     	<artifactId>silver-cms-dao</artifactId>
     	<version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>com.liaojian.showcase</groupId>
+      <artifactId>silver-cms-commons</artifactId>
+      <version>0.0.1</version>
     </dependency>
   </dependencies>
 </project>

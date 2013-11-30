@@ -50,7 +50,7 @@
                 <th>名称</th>
                 <th>类型</th>
                 <th>大小</th>
-                <th>上传时间</th>
+                <th>上传时间</th>                
                 </thead>
                 <c:if test="${webResourceList != null}">
                     <form id="list" action="${ctx}/webresource/delete" method="POST">
@@ -58,6 +58,9 @@
                     <tr>
                         <td><input type="checkbox" name="idSelected" value="${webResource.id}"/>${status.count}</td>
                         <td>${webResource.name}</td>
+                        <td>${webResource.type}</td>
+                        <td>${webResource.resourceSize}</td>
+                        <td>${webResource.uploadTimestamp}</td>
                     </tr>        
                     </c:forEach>
                     </form>
@@ -65,12 +68,12 @@
             </table>    
         </div>        
         <div id="uploadFormDiv" style="display: none" title="上传资源">
-            <form id="uploadForm" method="POST" action="${ctx}/webresource/uploadResource" enctype="multipart/form-data">
+            <form id="uploadForm" method="POST" action="${ctx}/webresource/create" enctype="multipart/form-data">
                 <fieldset>
                     <label for="filePath">上传资源本地路径：</label>
                     <input type="file" id="uploadFilePath" name="uploadFilePath" size="30"/>  
-                    <label for="filePath">资源名：</label>
-                    <input type="text" id="fileName" name="fileName" size="30"/>  
+                    <label for="filePath">备注：</label>
+                    <input type="text" id="remark" name="remark" size="30"/>  
                 </fieldset>
             </form>
         </div>
