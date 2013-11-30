@@ -6,5 +6,5 @@
 /development/silver-cms/silver-cms-entity/.settings/*
 /development/silver-cms/silver-cms-service/.settings/*
 /development/silver-cms/silver-cms-web/.settings/*
-/development/*/.classpath
-/development/*/.project
+/development/**/.classpath
+/development/**/.project
